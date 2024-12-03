@@ -10,7 +10,7 @@ import (
 )
 
 func isSafe(values []string) bool {
-	var increasing, decreasing = false, false
+	increasing, decreasing := false, false
 
 	for index := 0; index < len(values)-1; index++ {
 		current, err := strconv.Atoi(values[index])
