@@ -30,8 +30,8 @@ func PartOne() int {
 
 		values := re.FindAllSubmatch(line, -1)
 
-		for index := range values {
-			args := strings.Split(string(values[index][1]), ",")
+		for _, value := range values {
+			args := strings.Split(string(value[1]), ",")
 
 			value1, err := strconv.Atoi(args[0])
 			if err != nil {
@@ -58,7 +58,7 @@ func PartTwo() int {
 	defer file.Close()
 
 	var result int
-	enabled := true
+	isEnabled := true
 
 	re := regexp.MustCompile(`mul\(([0-9]{1,3},[0-9]{1,3})\)|don't\(\)|do\(\)`)
 
@@ -71,31 +71,33 @@ func PartTwo() int {
 
 		values := re.FindAllSubmatch(line, -1)
 
-		for index := range values {
-			if string(values[index][0]) == "do()" {
-				enabled = true
+		for _, value := range values {
+			if string(value[0]) == "do()" {
+				isEnabled = true
 				continue
 			}
-			if string(values[index][0]) == "don't()" {
-				enabled = false
+			if string(value[0]) == "don't()" {
+				isEnabled = false
 				continue
 			}
 
-			if enabled == true {
-				args := strings.Split(string(values[index][1]), ",")
-
-				value1, err := strconv.Atoi(args[0])
-				if err != nil {
-					log.Fatal(err)
-				}
-
-				value2, err := strconv.Atoi(args[1])
-				if err != nil {
-					log.Fatal(err)
-				}
-
-				result += value1 * value2
+			if !isEnabled {
+				continue
 			}
+
+			args := strings.Split(string(value[1]), ",")
+
+			value1, err := strconv.Atoi(args[0])
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			value2, err := strconv.Atoi(args[1])
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			result += value1 * value2
 		}
 	}
 

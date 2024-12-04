@@ -82,12 +82,12 @@ func PartTwo() int {
 		if err != nil {
 			log.Fatal(err)
 		}
-		right[value] += 1
+		right[value]++
 	}
 
 	var result int
-	for index := range left {
-		result += left[index] * right[left[index]]
+	for _, value := range left {
+		result += value * right[value]
 	}
 
 	return result

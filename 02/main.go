@@ -10,7 +10,7 @@ import (
 )
 
 func isSafe(values []string) bool {
-	increasing, decreasing := false, false
+	isIncreasing, isDecreasing := false, false
 
 	for index := 0; index < len(values)-1; index++ {
 		current, err := strconv.Atoi(values[index])
@@ -29,13 +29,13 @@ func isSafe(values []string) bool {
 		}
 
 		if difference > 0 {
-			increasing = true
+			isIncreasing = true
 		}
 		if difference < 0 {
-			decreasing = true
+			isDecreasing = true
 		}
 
-		if increasing == true && decreasing == true {
+		if isIncreasing && isDecreasing {
 			return false
 		}
 
@@ -66,7 +66,7 @@ func PartOne() int {
 		values := strings.Split(string(line), " ")
 
 		if isSafe(values) {
-			result += 1
+			result++
 		}
 	}
 
@@ -107,7 +107,7 @@ func PartTwo() int {
 		values := strings.Split(string(line), " ")
 
 		if isSafe(values) || checkDampener(values) {
-			result += 1
+			result++
 		}
 	}
 
